@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Planner5D — Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-left">
+        <div class="workspace">
+          <button class="brand" type="button" id="workspace" aria-haspopup="listbox" aria-expanded="false" aria-controls="profile-picker">
+            <img src="assets/logo.svg" width="26" height="26" alt="Planner5D" />
+            <span class="brand-cluster">
+              <span id="workspace-name">Personal</span>
+              <span class="team-pill">Team</span>
+              <img class="chev" src="assets/chevron.svg" alt="" />
+            </span>
+          </button>
+          <div class="picker" id="profile-picker" role="listbox" aria-label="Profile" hidden>
+            <button class="picker-row is-on" type="button" role="option" aria-selected="true" data-profile="Personal">
+              <img src="assets/picker-user.svg" width="24" height="24" alt="" />
+              <span class="picker-copy"><strong>Personal</strong><small>Pro account</small></span>
+              <img class="picker-check" src="assets/picker-check.svg" width="24" height="24" alt="" />
+            </button>
+            <button class="picker-row" type="button" role="option" aria-selected="false" data-profile="Team R">
+              <span class="picker-mark">
+                <img src="assets/picker-user.svg" width="24" height="24" alt="" />
+                <span class="picker-letter">R</span>
+              </span>
+              <span class="picker-copy"><strong>Team R</strong><small>3 seats</small></span>
+              <img class="picker-check" src="assets/picker-check.svg" width="24" height="24" alt="" />
+            </button>
+            <button class="picker-row picker-create" type="button" data-toast="Create team">
+              <img src="assets/picker-add.svg" width="24" height="24" alt="" />
+              <span class="picker-copy"><strong>Create team</strong></span>
+              <span class="picker-new">New</span>
+            </button>
+          </div>
+        </div>
+        <button class="icon-btn" type="button" id="menu-btn" aria-label="Menu">
+          <img src="assets/menu.svg" alt="" />
+        </button>
+      </div>
+      <form class="search" role="search">
+        <img src="assets/search.svg" alt="" />
+        <input type="search" placeholder="Search everything" aria-label="Search everything" />
+      </form>
+      <div class="header-right">
+        <button class="btn btn-green" type="button" data-toast="Upgrade opens the plans page">
+          <img src="assets/crown.svg" alt="" /> Upgrade
+        </button>
+        <button class="icon-btn" type="button" aria-label="Help" data-toast="Help center">
+          <img src="assets/help.svg" alt="" />
+        </button>
+        <div class="notify" id="notify">
+          <button class="icon-btn notify-wrap" id="notify-btn" type="button" aria-label="Notifications" aria-expanded="false" aria-controls="notify-panel">
+            <img src="assets/notify.svg" alt="" />
+            <span class="notify-count" id="notify-badge">4</span>
+          </button>
+          <div class="notify-panel" id="notify-panel" hidden>
+            <div class="notify-head">
+              <strong>Notifications</strong>
+              <div class="notify-filterwrap">
+                <button class="notify-filters" type="button" id="notify-filters" aria-label="Filters" aria-expanded="false" aria-controls="notify-filter-menu">
+                  <img src="assets/notify-filters.svg" width="24" height="24" alt="" />
+                </button>
+                <div class="notify-filtermenu" id="notify-filter-menu" role="menu" hidden>
+                  <button type="button" data-filter="all" class="is-on" role="menuitemradio" aria-checked="true">All</button>
+                  <button type="button" data-filter="unread" role="menuitemradio" aria-checked="false">Unread <b class="is-blue notify-unread-count" id="notify-unread-count">4</b></button>
+                  <button type="button" data-filter="mention" role="menuitemradio" aria-checked="false">Mentions <b class="notify-mention-count" id="notify-mention-count">3</b></button>
+                </div>
+              </div>
+            </div>
+            <div class="notify-body">
+              <div class="notify-list" id="notify-list"></div>
+              <p class="notify-empty" id="notify-empty" hidden>Nothing in this filter.</p>
+            </div>
+            <div class="notify-foot">
+            <button class="notify-all" id="notify-all" type="button">View all notifications</button>
+            <div class="notify-promo" id="notify-promo">
+              <p class="notify-from">from Planner 5D</p>
+              <button class="notify-promo-x" id="notify-promo-x" type="button" aria-label="Dismiss">
+                <img src="assets/notify-close.svg" width="24" height="24" alt="" />
+              </button>
+              <div class="notify-promo-body">
+                <img class="notify-gift" src="assets/notify-gift.png" width="56" height="56" alt="" />
+                <div>
+                  <strong>Pro is 30% off until Nov 30</strong>
+                  <p>Unlimited renders and 4K export</p>
+                  <button class="notify-plans" type="button" data-toast="View plans">View plans</button>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <button class="credits" type="button" data-screen="usage" aria-label="179 credits">
+          <img src="assets/spark.svg" alt="" />
+          <b id="credit-count">179</b>
+          <span class="avatar-sm" id="credit-avatar">H</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="nav-group">
+          <div class="nav-label" data-i18n="nav-general">General</div>
+          <button class="nav-item" type="button" data-screen="settings"><img src="assets/settings.svg" alt="" /> <span data-i18n="nav-settings">Settings</span></button>
+          <button class="nav-item" type="button" data-screen="billing"><img src="assets/billing.svg" alt="" /> <span data-i18n="nav-billing">Billing</span></button>
+          <button class="nav-item" type="button" data-screen="usage"><img src="assets/usage.svg" alt="" /> <span data-i18n="nav-usage">Usage</span></button>
+          <button class="nav-item" type="button" data-screen="integrations"><img src="assets/link.svg" alt="" /> <span data-i18n="nav-integrations">Integrations</span></button>
+        </div>
+        <div class="nav-group" id="social-group">
+          <div class="nav-label" data-i18n="nav-social">Social</div>
+          <button class="nav-item" type="button" data-screen="profile"><img src="assets/user.svg" alt="" /> <span data-i18n="nav-profile">Public profile</span></button>
+          <button class="nav-item" type="button" data-screen="community" id="community-item"><img src="assets/earth.svg" alt="" /> <span data-i18n="nav-community">Community</span></button>
+        </div>
+        <div class="nav-group" id="teams-group">
+          <div class="nav-label" id="teams-label">For teams</div>
+          <button class="nav-item team-switch" type="button" id="open-team">
+            <span class="team-mark" id="team-switch-mark">R</span>
+            <span class="team-switch-copy">
+              <strong id="team-switch-name">Team R</strong>
+              <small id="team-switch-hint">Switch to team</small>
+            </span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="screen" id="screen-settings" data-screen="settings">
+          <div class="sheet">
+            <h1 class="page-title" data-i18n="page-settings">Settings</h1>
+            <div class="only-personal">
+            <div class="block">
+              <div class="account-edit-row">
+                <h2>Account details</h2>
+                <button class="btn btn-soft small" type="button" id="edit-account">Edit</button>
+              </div>
+              <div class="card account-card">
+                <div class="account-main">
+                  <div class="row">
+                    <div class="stack">
+                      <h3>Profile picture</h3>
+                      <p class="fine">Shown on your public profile</p>
+                    </div>
+                    <span class="avatar-preview" id="account-avatar">O</span>
+                  </div>
+                  <div class="row">
+                    <div class="stack">
+                      <h3>Username</h3>
+                      <p id="account-user">@ratata</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block" id="prefs-block">
+              <h2 data-i18n="prefs">Preferences</h2>
+              <div class="card">
+                <div class="row">
+                  <div class="stack">
+                    <h3 data-i18n="lang">Language</h3>
+                    <p data-i18n="lang-hint">The language used in Planner 5D</p>
+                  </div>
+                  <label class="pref-select">
+                    <select id="pref-lang" aria-label="Language">
+                      <option value="en">English</option>
+                      <option value="ru">Русский</option>
+                      <option value="es">Español</option>
+                    </select>
+                    <img src="assets/chevron.svg" alt="" />
+                  </label>
+                </div>
+                <div class="row">
+                  <div class="stack">
+                    <h3 data-i18n="look">Appearance</h3>
+                    <p data-i18n="look-hint">Light or dark</p>
+                  </div>
+                  <div class="segment" id="pref-theme" role="radiogroup" aria-label="Appearance">
+                    <button type="button" data-theme="light" class="on" role="radio" aria-checked="true" data-i18n="light">Light</button>
+                    <button type="button" data-theme="dark" role="radio" aria-checked="false" data-i18n="dark">Dark</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block">
+              <h2 data-i18n="security">Security and sign-in</h2>
+              <div class="card">
+                <div class="row">
+                  <div class="stack">
+                    <h3 data-i18n="email">Email</h3>
+                    <p>olya@gmail.com</p>
+                  </div>
+                  <button class="pencil" type="button" aria-label="Edit email" data-toast="Email editing"><img src="assets/pen.svg" alt="" /></button>
+                </div>
+                <div class="row">
+                  <div class="stack">
+                    <h3 data-i18n="sessions">Active sessions</h3>
+                    <p data-i18n="sessions-hint">You are signed in on 2 devices</p>
+                  </div>
+                  <button class="btn btn-soft" type="button" data-toast="Signed out on other devices"><span data-i18n="signout">Sign out on other devices</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="block">
+              <h2>API access <span class="pro">Pro</span></h2>
+              <div class="card">
+                <div class="row">
+                  <div class="stack">
+                    <h3>Get API access with Pro</h3>
+                    <p>Connect your Pro account to the <a href="https://planner5d.com/reference/public-api" target="_blank" rel="noreferrer">Planner 5D public API</a>. Requests use your existing access and credits. Use this access token for public API requests.</p>
+                  </div>
+                  <button class="btn btn-green" type="button" data-toast="Upgrade opens the plans page"><img src="assets/crown-sm.svg" alt="" /> Upgrade</button>
+                </div>
+              </div>
+            </div>
+            <div class="block">
+              <h2>Notification settings</h2>
+              <div class="card" id="notify-card"></div>
+            </div>
+            <div class="block">
+              <h2>Danger zone</h2>
+              <div class="card">
+                <div class="row">
+                  <div class="stack">
+                    <h3>Delete account</h3>
+                    <p>All data, purchases, projects will be lost</p>
+                  </div>
+                  <button class="btn btn-text" type="button" data-confirm="Delete this account?">Delete</button>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="only-team">
+              <div class="block">
+                <div class="head-row">
+                  <h2>General</h2>
+                  <button class="btn btn-soft small" type="button" data-toast="Edit team">Edit</button>
+                </div>
+                <div class="card pair">
+                  <div><h3>Name</h3><p>Team R</p></div>
+                  <div><h3>Seats</h3><p>3</p></div>
+                </div>
+              </div>
+              <div class="block">
+                <div class="head-row">
+                  <h2>Members</h2>
+                  <button class="btn btn-soft" type="button" data-toast="Add member"><img src="assets/plus.svg" width="20" height="20" alt="" /> Add member</button>
+                </div>
+                <div class="card members">
+                  <span class="th">Name</span><span class="th">Status</span><span class="th">Credits</span><span class="th">Role</span><span class="th"></span>
+                  <div class="who-name"><span class="face" style="background:#71b513">M</span><div><strong>Maria <span>(you)</span></strong><span class="mail">mary@gmail.com</span></div></div>
+                  <span><em class="status">Active</em></span>
+                  <div><div class="credit-mini">898 <small>/ 1,400</small></div><div class="mini-track"><b style="width:64%"></b></div></div>
+                  <span>Owner</span>
+                  <button class="more-btn" type="button" aria-label="Maria menu" data-toast="Member menu"><img src="assets/more.svg" alt="" /></button>
+                  <div class="who-name"><span class="face" style="background:#f47425">P</span><div><strong>Pete</strong><span class="mail">pete@gmail.com</span></div></div>
+                  <span><em class="status">Active</em></span>
+                  <div><div class="credit-mini">543 <small>/ 1,231</small></div><div class="mini-track"><b style="width:44%"></b></div></div>
+                  <button class="role-btn" type="button" data-toast="Role: Full seat">Full seat <img src="assets/chevron.svg" alt="" /></button>
+                  <button class="more-btn" type="button" aria-label="Pete menu" data-toast="Member menu"><img src="assets/more.svg" alt="" /></button>
+                  <div class="who-name"><span class="face" style="background:#016ae1">A</span><div><strong>Ann</strong><span class="mail">ann@gmail.com</span></div></div>
+                  <span><em class="status">Active</em></span>
+                  <div><div class="credit-mini">200 <small>/ 1,000</small></div><div class="mini-track"><b class="low" style="width:20%"></b></div></div>
+                  <button class="role-btn" type="button" data-toast="Role: Full seat">Full seat <img src="assets/chevron.svg" alt="" /></button>
+                  <button class="more-btn" type="button" aria-label="Ann menu" data-toast="Member menu"><img src="assets/more.svg" alt="" /></button>
+                </div>
+              </div>
+              <div class="block">
+                <h2>Danger zone</h2>
+                <div class="card">
+                  <div class="row">
+                    <div class="stack">
+                      <h3>Delete team account</h3>
+                      <p>Removes Team R, its projects and all 3 seats</p>
+                    </div>
+                    <button class="btn btn-text" type="button" data-confirm="Delete team account?">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-billing" data-screen="billing">
+          <div class="sheet">
+            <h1 class="page-title">Billing</h1>
+            <div class="card plan only-personal" style="margin-bottom: 32px;">
+              <div class="plan-body">
+                <div>
+                  <h3>Planner5D <span class="badge-lime">Premium</span></h3>
+                  <p>Plan your room in 3D for free · next payment Dec 1, 2026</p>
+                </div>
+                <button class="btn btn-green" type="button" data-toast="Upgrade opens the plans page"><img src="assets/crown-sm.svg" alt="" /> Upgrade</button>
+              </div>
+            </div>
+            <div class="card plan team-plan only-team" style="margin-bottom: 32px;">
+              <div class="plan-body">
+                <div>
+                  <h3>Team plan · 3 seats</h3>
+                  <p>3 × $19.99 / month · next payment Dec 1, 2026</p>
+                </div>
+                <div class="faces">
+                  <span class="face" style="background:#016ae1">A</span>
+                  <span class="face" style="background:#eba000">B</span>
+                  <span class="face" style="background:#888d94">+2</span>
+                </div>
+                <button class="btn btn-green" type="button" data-toast="Add seats"><img src="assets/plus-white.svg" width="24" height="24" alt="" /> Add seats</button>
+              </div>
+            </div>
+            <div class="block">
+              <div class="head-row">
+                <h2>Billing information</h2>
+                <button class="btn btn-soft small" type="button" id="edit-billing">Edit</button>
+              </div>
+              <div class="card" id="billing-info">
+                <div class="row"><div class="stack"><h3>Billing email</h3><p data-bill="email">olya@gmail.com</p></div></div>
+                <div class="row"><div class="stack"><h3>Name</h3><p data-bill="name">olya</p></div></div>
+                <div class="row"><div class="stack"><h3>Billing address</h3><p data-bill="address">Soskin 15, Nahariya IL</p></div></div>
+              </div>
+            </div>
+            <div class="block">
+              <div class="head-row">
+                <h2>Payment methods</h2>
+                <button class="btn btn-soft small" type="button" data-toast="Add a card">Add</button>
+              </div>
+              <div class="card">
+                <div class="pay">
+                  <img src="assets/visa.svg" alt="Visa" />
+                  <div class="stack">
+                    <h3>Visa •••• 1223 <span class="chip">Default</span></h3>
+                    <p>Expires on 04/28</p>
+                  </div>
+                  <button class="more-btn" type="button" aria-label="Card menu" id="card-menu-btn"><img src="assets/more.svg" alt="" /></button>
+                  <div class="menu" id="card-menu">
+                    <button type="button" data-toast="Card set as default">Make default</button>
+                    <button type="button" data-toast="Card removed from this prototype">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block">
+              <h2>Invoices</h2>
+              <div class="card">
+                <div class="table">
+                  <span class="th">Date</span><span class="th">Amount</span><span class="th">Status</span><span class="th">Description</span>
+                  <span>Mar 15</span><span>$19.99</span><span><em class="paid">Paid</em></span><span><span class="only-personal">Premium - subscription</span><span class="only-team">Team - subscription</span></span>
+                  <span>Mar 12</span><span>$27.99</span><span><em class="paid">Paid</em></span><span>500 credits pack</span>
+                </div>
+              </div>
+              <p class="foot-note"><span class="only-personal">Want to stop Premium?</span><span class="only-team">Want to stop Team Plan?</span> <button class="btn btn-text dark" type="button" data-confirm="Cancel this subscription?">Cancel subscription</button></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-usage" data-screen="usage">
+          <div class="sheet">
+            <h1 class="page-title">Usage</h1>
+            <div class="only-personal">
+            <div class="card credits-card" style="margin-bottom: 32px;">
+              <div class="credits-head">
+                <div>
+                  <h3>Credits</h3>
+                  <p>Limit refills on 10 Nov, 2026</p>
+                </div>
+                <div class="score">179 <small>/ 200</small></div>
+              </div>
+              <div class="track" aria-hidden="true"><i></i></div>
+              <div class="legend"><span><i class="sub"></i>Subscription</span><span><i class="packs"></i>Packs</span></div>
+              <div class="credits-foot">
+                <h3>Get 10x credits with PRO</h3>
+                <div class="actions">
+                  <button class="btn btn-mint" type="button" data-toast="Buy credits">Buy credits</button>
+                  <button class="btn btn-green" type="button" data-toast="Upgrade opens the plans page"><img src="assets/crown-sm.svg" alt="" /> Upgrade</button>
+                </div>
+              </div>
+            </div>
+            <div class="block">
+              <h2>Top-up settings</h2>
+              <div class="card">
+                <div class="row">
+                  <div class="stack">
+                    <h3>Auto-top up</h3>
+                    <p id="auto-topup-note">Automatically buy more usage credits when you’re running low</p>
+                  </div>
+                  <button class="toggle" id="auto-topup" type="button" aria-pressed="false" aria-label="Auto-top up">
+                    <img src="assets/toggle-off.svg" alt="" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="card only-team" style="margin-bottom: 32px;">
+              <div class="team-usage-head">
+                <h3>Team · 3 seats</h3>
+                <p>Everyone spends only their own credits · refills Dec 1</p>
+              </div>
+              <div class="seat">
+                <span class="face sm" style="background:#71b513">M</span>
+                <div><strong>Maria <span>(you)</span></strong><i class="bar"><b style="width:70%"></b></i></div>
+                <div class="seat-score">898 <small>/ 1,400</small></div>
+                <button class="btn btn-soft small" type="button" data-toast="Top up Maria">Top up</button>
+              </div>
+              <div class="seat">
+                <span class="face sm" style="background:#f47425">P</span>
+                <div><strong>Pete</strong><i class="bar"><b class="hot" style="width:10%"></b></i></div>
+                <div class="seat-score">898 <small>/ 1,400</small></div>
+                <button class="btn btn-mint small" type="button" data-toast="Top up Pete">Top up</button>
+              </div>
+              <div class="seat">
+                <span class="face sm" style="background:#016ae1">A</span>
+                <div><strong>Ann</strong><i class="bar"><b style="width:70%"></b></i></div>
+                <div class="seat-score">898 <small>/ 1,400</small></div>
+                <button class="btn btn-soft small" type="button" data-toast="Top up Ann">Top up</button>
+              </div>
+              <div class="seat-foot">
+                <strong>Need more people?</strong>
+                <button class="btn btn-green" type="button" data-toast="Add seat">Add seat</button>
+              </div>
+            </div>
+            <div class="block">
+              <div class="head-row">
+                <h2>Analytics</h2>
+                <div class="segment" id="range">
+                  <button type="button" data-range="7">7d</button>
+                  <button type="button" class="on" data-range="30">30d</button>
+                </div>
+              </div>
+              <div class="card chart-card">
+                <div class="chart-top">
+                  <h3 id="range-label">Oct 21 – Nov 19</h3>
+                  <div class="chart-nav">
+                    <button type="button" id="range-prev" aria-label="Previous"><img src="assets/chevron-left.svg" alt="" /></button>
+                    <button type="button" id="range-next" aria-label="Next"><img src="assets/chevron-right.svg" alt="" /></button>
+                  </div>
+                </div>
+                <div class="people only-team" id="who">
+                  <button type="button" class="on">All</button>
+                  <button type="button">Maria</button>
+                  <button type="button">Pete</button>
+                  <button type="button">Ann</button>
+                </div>
+                <div class="bars" id="bars"></div>
+                <div class="axis"><span>Oct 30</span><span>Nov 3</span><span>Nov 5</span></div>
+                <div class="stats">
+                  <div><i style="background:#7c5dff"></i><div><small>Renders</small><b>0%</b></div></div>
+                  <div><i style="background:#73eaad"></i><div><small>Home scans</small><b>0%</b></div></div>
+                  <div><i style="background:#0177de"></i><div><small>Chats</small><b>0%</b></div></div>
+                  <div><i style="background:#ffad82"></i><div><small>AI Studio</small><b>0%</b></div></div>
+                  <div><i style="background:#da4092"></i><div><small>Home plans suite</small><b>0%</b></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="block" id="usage-log">
+              <div class="head-row history-head">
+                <h2>Credit history</h2>
+                <div class="history-tools">
+                  <div class="usage-filter only-team" id="task-who">
+                    <button class="history-pill" id="task-who-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="task-who-menu">
+                      <strong id="task-who-value">All users</strong>
+                      <img src="assets/chevron.svg" alt="" />
+                    </button>
+                    <div class="usage-filter-menu" id="task-who-menu" role="listbox" hidden>
+                      <button type="button" role="option" class="on" data-who="all" aria-selected="true"><span>All users</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-who="Maria" aria-selected="false"><span class="face sm" style="background:#71b513">M</span><span>Maria</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-who="Pete" aria-selected="false"><span class="face sm" style="background:#f47425">P</span><span>Pete</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-who="Ann" aria-selected="false"><span class="face sm" style="background:#016ae1">A</span><span>Ann</span><img src="assets/picker-check.svg" alt="" /></button>
+                    </div>
+                  </div>
+                  <div class="usage-filter" id="task-tool">
+                    <button class="history-pill" id="task-tool-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="task-tool-menu">
+                      <strong id="task-tool-value">All activity</strong>
+                      <img src="assets/chevron.svg" alt="" />
+                    </button>
+                    <div class="usage-filter-menu" id="task-tool-menu" role="listbox" hidden>
+                      <button type="button" role="option" class="on" data-tool="all" aria-selected="true"><span>All activity</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-tool="renders" aria-selected="false"><span>Render</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-tool="scans" aria-selected="false"><span>Home scan</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-tool="chats" aria-selected="false"><span>Chat</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-tool="studio" aria-selected="false"><span>AI Studio</span><img src="assets/picker-check.svg" alt="" /></button>
+                      <button type="button" role="option" data-tool="plans" aria-selected="false"><span>Home plans</span><img src="assets/picker-check.svg" alt="" /></button>
+                    </div>
+                  </div>
+                  <button class="history-pill" id="usage-csv" type="button">
+                    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.2v7.2M5.2 6.8 8 9.6l2.8-2.8M3.2 12.2h9.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Download CSV
+                  </button>
+                </div>
+              </div>
+              <div class="card usage-log">
+                <table class="usage-table">
+                  <colgroup>
+                    <col class="activity" />
+                    <col class="date" />
+                    <col />
+                    <col class="credits" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>Activity</th>
+                      <th>Date</th>
+                      <th>Details</th>
+                      <th class="num">Credits</th>
+                    </tr>
+                  </thead>
+                  <tbody id="usage-rows"></tbody>
+                </table>
+                <div class="history-foot">
+                  <span id="usage-count">1–10 of 10</span>
+                  <div class="history-pages" id="usage-pages"></div>
+                </div>
+                <p class="usage-empty" id="usage-empty" hidden>No tasks in this period.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen public" id="screen-profile" data-screen="profile">
+          <div>
+            <div class="public-top">
+              <div class="segment" id="mode">
+                <button type="button" class="on" data-mode="editor">Editor</button>
+                <button type="button" data-mode="preview">Preview</button>
+              </div>
+              <a class="public-link" href="#profile" id="public-url"><img src="assets/link.svg" alt="" /> planner5d.com/ratata</a>
+            </div>
+            <article class="profile-card">
+              <div class="banner"><img src="assets/banner.png" alt="" /></div>
+              <div class="who">
+                <div class="avatar-lg" id="avatar-letter">O<button class="cam" type="button" aria-label="Change photo" data-toast="Photo upload"><img src="assets/camera.svg" alt="" /></button></div>
+                <div class="name-line">
+                  <h1 id="view-name">Olya W.</h1>
+                  <span class="work" id="view-work"><img src="assets/dot.svg" alt="" /> Open to work</span>
+                </div>
+                <p class="handle" id="view-handle">@ratata · Israel</p>
+                <p class="bio" id="view-bio">Interior designer for garden gnomes</p>
+                <div class="actions">
+                  <button class="btn btn-dark" type="button" id="contact-btn" data-toast="Message sent to olya@gmail.com"><img src="assets/send.svg" alt="" /> Contact me</button>
+                  <button class="btn btn-soft" type="button" id="follow-btn">Follow</button>
+                  <span class="vdiv" id="social-div"></span>
+                  <button class="circle social-btn" type="button" aria-label="Instagram" data-toast="Instagram @olya"><span class="pin"><img src="assets/instagram-btn.svg" alt="" /></span></button>
+                  <button class="circle social-btn" type="button" aria-label="Pinterest" data-toast="Pinterest @olya"><span class="pin"><img src="assets/pinterest-btn.svg" alt="" /></span></button>
+                </div>
+              </div>
+              <div class="projects" id="projects-block">
+                <div class="projects-head">
+                  <h2>Projects</h2>
+                  <button class="sort" type="button" id="sort-btn"> <span>Sort:</span> newest first</button>
+                </div>
+                <div class="grid" id="project-grid">
+                  <button class="tile add" type="button" id="add-project">
+                    <img src="assets/plus-add.svg" width="24" height="24" alt="" />
+                    Add new project
+                  </button>
+                  <div class="tile"><img class="shot" src="assets/project-1.png" alt="Living room project" /><button class="kebab" type="button" aria-label="Project menu"><img src="assets/more-light.svg" alt="" /></button></div>
+                  <div class="tile"><img class="shot" src="assets/project-2.png" alt="Colorful living room" /><button class="kebab" type="button" aria-label="Project menu"><img src="assets/more-light.svg" alt="" /></button></div>
+                  <div class="tile"><img class="shot" src="assets/project-3.png" alt="Library room" /><button class="kebab" type="button" aria-label="Project menu"><img src="assets/more-light.svg" alt="" /></button></div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <aside class="side-col" id="editor">
+            <div class="promo">
+              <div class="blob a"></div><div class="blob b"></div><div class="blob c"></div>
+              <div class="promo-copy">
+                <small>For professionals</small>
+                <strong>Build your portfolio and share it with clients</strong>
+              </div>
+              <button class="btn btn-green tight" type="button" data-toast="Get Pro">Get Pro</button>
+            </div>
+            <h2 style="margin-top:0">Profile details</h2>
+            <div class="card fields-card">
+              <div class="fields">
+                <div class="field"><label for="f-name">Name</label><input id="f-name" value="Olya W." /></div>
+                <div class="field"><label for="f-user">Username</label><input id="f-user" value="@ratata" /></div>
+                <div class="field"><label for="f-loc">Location</label><input id="f-loc" value="Israel" /></div>
+                <div class="field"><label for="f-desc">Description</label><textarea id="f-desc">Interior designer for garden gnomes</textarea></div>
+              </div>
+            </div>
+
+            <h2 class="sm">What others see about you</h2>
+            <div class="card" id="visibility"></div>
+
+            <h2 class="sm">Contacts</h2>
+            <div class="card" style="margin-bottom: 16px;">
+              <div class="row row-top">
+                <div class="stack">
+                  <h3>‘Contact me’ button</h3>
+                  <p class="fine">Set email where clients can conact you</p>
+                </div>
+                <button class="toggle" type="button" aria-pressed="true" data-bind="contact" aria-label="Contact me button">
+                  <img src="assets/toggle-on.svg" alt="" />
+                </button>
+              </div>
+              <div style="padding: 8px 16px 16px;">
+                <div class="field"><label for="f-email">Email</label><input id="f-email" value="olya@gmail.com" /></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row">
+                <h3>Social profiles</h3>
+                <button class="toggle" type="button" aria-pressed="true" data-bind="social" aria-label="Social profiles">
+                  <img src="assets/toggle-on.svg" alt="" />
+                </button>
+              </div>
+              <div class="social-row">
+                <span class="sky"><span class="pin"><img src="assets/instagram-btn.svg" alt="" /></span></span>
+                <div class="stack"><h3>Instagram</h3><p>@olya</p></div>
+                <button class="more-btn" type="button" aria-label="Instagram menu" data-toast="Edit Instagram"><img src="assets/more.svg" alt="" /></button>
+              </div>
+              <div class="social-row">
+                <span class="sky"><span class="pin"><img src="assets/pinterest.svg" alt="" /></span></span>
+                <div class="stack"><h3>Pinterest</h3><p>@olya</p></div>
+                <button class="more-btn" type="button" aria-label="Pinterest menu" data-toast="Edit Pinterest"><img src="assets/more.svg" alt="" /></button>
+              </div>
+              <button class="social-row add-line" type="button" id="add-social" style="width:100%; border:0; background:transparent; text-align:left;">
+                <span class="sky"><img src="assets/plus-add.svg" width="24" height="24" alt="" /></span>
+                Add new profile
+              </button>
+            </div>
+
+            <h2 class="sm">Danger zone</h2>
+            <div class="card">
+              <div class="row row-top">
+                <div class="stack">
+                  <h3>Delete public profile</h3>
+                  <p class="fine">All data, published projects, renders will be lost</p>
+                </div>
+                <button class="btn btn-text" type="button" data-confirm="Delete this public profile?">Delete</button>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="screen" id="screen-integrations" data-screen="integrations">
+          <div class="sheet integrations">
+            <h1 class="page-title">Integrations</h1>
+            <p class="int-lead">Connect the tools you use with Copilot or clients</p>
+            <div class="int-tools">
+              <label class="int-search">
+                <img src="assets/search.svg" width="24" height="24" alt="" />
+                <input id="int-query" type="search" placeholder="Search integrations" aria-label="Search integrations" />
+              </label>
+              <div class="int-filters" role="radiogroup" aria-label="Integration type">
+                <button type="button" role="radio" data-int="instruments" aria-checked="false">Instruments</button>
+                <button type="button" role="radio" class="on" data-int="social" aria-checked="true">Social</button>
+              </div>
+            </div>
+            <section class="int-group" data-int-group="social">
+              <h2>Connected</h2>
+              <article class="card int-card" data-name="instagram">
+                <span class="int-mark int-mark-ig"><img src="assets/int-instagram.png" width="36" height="36" alt="" /></span>
+                <div class="stack">
+                  <h3>Instagram</h3>
+                  <p>@olya · Copilot posts renders and replies to clients</p>
+                </div>
+                <button class="btn btn-soft int-action" type="button" data-toast="Manage Instagram">Manage</button>
+              </article>
+            </section>
+            <section class="int-group" data-int-group="social">
+              <h2>Available</h2>
+              <div class="int-list">
+                <article class="card int-card" data-name="pinterest">
+                  <span class="int-mark"><img src="assets/int-pinterest.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack">
+                    <h3>Pinterest</h3>
+                    <p>Copilot saves ideas and builds boards from a project</p>
+                  </div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Pinterest">Connect</button>
+                </article>
+                <article class="card int-card" data-name="facebook">
+                  <span class="int-mark"><img src="assets/int-facebook.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack">
+                    <h3>Facebook</h3>
+                    <p>Copilot shares a finished project on your page</p>
+                  </div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Facebook">Connect</button>
+                </article>
+                <article class="card int-card" data-name="reddit">
+                  <span class="int-mark"><img src="assets/int-reddit.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack">
+                    <h3>Reddit</h3>
+                    <p>Copilot finds design questions and drafts a reply</p>
+                  </div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Reddit">Connect</button>
+                </article>
+              </div>
+            </section>
+            <section class="int-group" data-int-group="instruments">
+              <h2>Available</h2>
+              <div class="int-list">
+                <article class="card int-card" data-name="google drive">
+                  <span class="int-mark"><img src="assets/int-drive.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Google Drive</h3><p>Copilot opens plans and photos from Drive</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Google Drive">Connect</button>
+                </article>
+                <article class="card int-card" data-name="matterport">
+                  <span class="int-mark"><img src="assets/int-matterport.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Matterport</h3><p>Copilot imports a 3D scan as the room</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Matterport">Connect</button>
+                </article>
+                <article class="card int-card" data-name="dropbox">
+                  <span class="int-mark"><img src="assets/int-dropbox.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Dropbox</h3><p>Copilot grabs project files from Dropbox</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Dropbox">Connect</button>
+                </article>
+                <article class="card int-card" data-name="onedrive">
+                  <span class="int-mark"><img src="assets/int-onedrive.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>OneDrive</h3><p>Copilot opens plans stored in OneDrive</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect OneDrive">Connect</button>
+                </article>
+                <article class="card int-card" data-name="box">
+                  <span class="int-mark"><img src="assets/int-box.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Box</h3><p>Copilot reads shared client files from Box</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Box">Connect</button>
+                </article>
+                <article class="card int-card" data-name="figma">
+                  <span class="int-mark"><img src="assets/int-figma.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Figma</h3><p>Copilot brings in frames and layout ideas</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Figma">Connect</button>
+                </article>
+                <article class="card int-card" data-name="canva">
+                  <span class="int-mark"><img src="assets/int-canva.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Canva</h3><p>Copilot turns a project into a client page</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Canva">Connect</button>
+                </article>
+                <article class="card int-card" data-name="miro">
+                  <span class="int-mark"><img src="assets/int-miro.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Miro</h3><p>Copilot reads the board and makes a plan</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Miro">Connect</button>
+                </article>
+                <article class="card int-card" data-name="google photos">
+                  <span class="int-mark"><img src="assets/int-photos.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Google Photos</h3><p>Copilot uses room photos as references</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Google Photos">Connect</button>
+                </article>
+                <article class="card int-card" data-name="google docs">
+                  <span class="int-mark"><img src="assets/int-docs.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Google Docs</h3><p>Copilot reads the brief and writes notes</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Google Docs">Connect</button>
+                </article>
+                <article class="card int-card" data-name="google sheets">
+                  <span class="int-mark"><img src="assets/int-sheets.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Google Sheets</h3><p>Copilot pulls the room list and budget</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Google Sheets">Connect</button>
+                </article>
+                <article class="card int-card" data-name="notion">
+                  <span class="int-mark"><img src="assets/int-notion.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Notion</h3><p>Copilot reads the client brief from notes</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Notion">Connect</button>
+                </article>
+                <article class="card int-card" data-name="airtable">
+                  <span class="int-mark"><img src="assets/int-airtable.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>Airtable</h3><p>Copilot reads the project and room list</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect Airtable">Connect</button>
+                </article>
+                <article class="card int-card" data-name="docusign">
+                  <span class="int-mark"><img src="assets/int-docusign.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>DocuSign</h3><p>Copilot sends the proposal out to sign</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect DocuSign">Connect</button>
+                </article>
+                <article class="card int-card" data-name="cloudconvert">
+                  <span class="int-mark"><img src="assets/int-cloudconvert.svg" width="24" height="24" alt="" /></span>
+                  <div class="stack"><h3>CloudConvert</h3><p>Copilot converts a plan into a Planner file</p></div>
+                  <button class="btn btn-soft int-action" type="button" data-toast="Connect CloudConvert">Connect</button>
+                </article>
+              </div>
+            </section>
+            <p class="int-empty" hidden>No integrations in this group.</p>
+            <p class="int-missing">Missing something? <button type="button" data-toast="Suggest an integration">Suggest an integration</button></p>
+          </div>
+        </section>
+        <section class="screen" id="screen-community" data-screen="community">
+          <div class="sheet">
+            <h1 class="page-title">Community</h1>
+            <div class="card"><div class="row"><div class="stack"><h3>Opens the Planner community</h3><p>This leads to the community page that already exists on Planner.</p></div></div></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+    <div class="editor" id="project-editor" hidden>
+      <header class="pub-bar">
+        <button class="pub-back" type="button" id="editor-back" aria-label="Back to profile">
+          <img src="assets/pub-back-line.svg" width="24" height="24" alt="" />
+        </button>
+        <div class="pub-mode" role="tablist" aria-label="View">
+          <button type="button" class="on" data-mode="editor" role="tab" aria-selected="true">Editor</button>
+          <button type="button" data-mode="preview" role="tab" aria-selected="false">Preview</button>
+        </div>
+        <div class="pub-publishwrap">
+          <button class="pub-publish" type="button" aria-expanded="false" aria-controls="publish-modal">Publish</button>
+          <div class="pub-dialog" id="publish-modal" role="dialog" aria-labelledby="publish-title" hidden>
+            <div class="pub-dialoghead">
+              <h2 id="publish-title">Your project preview</h2>
+              <button class="pub-dialogx" type="button" data-close-publish aria-label="Close">
+                <img src="assets/pub-preview-close.svg" width="16" height="16" alt="" />
+              </button>
+            </div>
+            <div class="pub-previewcard">
+              <img class="pub-previewhero" src="assets/pub-preview-hero-2.png" alt="" />
+              <div class="pub-previewmeta">
+                <strong>Studio Silhouette</strong>
+                <span>by Olya W. · @ratata</span>
+              </div>
+            </div>
+            <div class="pub-linkrow">
+              <p class="pub-link" id="publish-link">planner5d.com/@ratata/studio-silhouette</p>
+              <button class="pub-copy" id="publish-copy" type="button">Copy</button>
+            </div>
+            <div class="pub-gallery">
+              <div>
+                <strong>Show in community gallery</strong>
+                <span>Other Planner 5D users will be able to find your project</span>
+              </div>
+              <button class="pub-galleryswitch" id="publish-gallery" type="button" aria-pressed="false" aria-label="Show in community gallery">
+                <img src="assets/pub-toggle.svg" width="44" height="30" alt="" />
+              </button>
+            </div>
+            <button class="pub-save" id="publish-save" type="button">Save &amp; Publish</button>
+          </div>
+        </div>
+      </header>
+      <div class="pub-body">
+        <aside class="pub-panel">
+          <section class="pub-card is-open pub-covercard">
+            <button class="pub-cardhead" type="button" aria-expanded="true">
+              <span class="pub-ico"><img src="assets/pub-image.svg" width="20" height="20" alt="" /></span>
+              <span>Cover image</span>
+            </button>
+            <div class="pub-coverbox">
+              <img class="pub-art" src="assets/pub-cover-art.png" width="88" height="88" alt="" />
+              <strong>Upload cover image</strong>
+              <p>The first thing visitors see</p>
+              <button class="pub-upload soft" id="pub-cover-upload" type="button">
+                <img src="assets/pub-upload.svg" width="24" height="24" alt="" />
+                Upload
+              </button>
+            </div>
+            <input id="pub-cover-input" type="file" accept="image/*" />
+            <div class="pub-coverfile" hidden>
+              <img class="pub-coverthumb" id="pub-cover-thumb" alt="" />
+              <span class="pub-covermeta">
+                <strong id="pub-cover-name">img.png</strong>
+                <small id="pub-cover-date"></small>
+              </span>
+              <div class="pub-addwrap">
+                <button class="pub-morebtn" id="pub-cover-more" type="button" aria-label="Cover menu" aria-expanded="false" aria-haspopup="menu" aria-controls="cover-menu">
+                  <img src="assets/pub-more.svg" width="24" height="24" alt="" />
+                </button>
+                <div class="pub-menu pub-rendmenu" id="cover-menu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-cover-action="change">Change</button>
+                  <button type="button" role="menuitem" data-cover-action="remove">Remove</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="pub-card is-open">
+            <button class="pub-cardhead" type="button" aria-expanded="true">
+              <span class="pub-ico"><img src="assets/pub-details.svg" width="20" height="20" alt="" /></span>
+              <span>Project details</span>
+            </button>
+            <div class="pub-fields">
+              <label class="pub-field">
+                <span>Title</span>
+                <input id="pub-title-input" type="text" value="" placeholder="Name your project" />
+              </label>
+              <label class="pub-field">
+                <span>Description</span>
+                <textarea id="pub-about-input" placeholder="What makes this space special?"></textarea>
+              </label>
+              <div class="pub-morefields" id="pub-extra" hidden>
+                <div class="pub-split">
+                  <label class="pub-field" data-detail="location" hidden>
+                    <span>Location</span>
+                    <input id="pub-location-input" type="text" />
+                  </label>
+                  <label class="pub-field" data-detail="year" hidden>
+                    <span>Year</span>
+                    <input id="pub-year-input" type="text" />
+                  </label>
+                </div>
+                <label class="pub-field" data-detail="tags" hidden>
+                  <span>Tags</span>
+                  <input id="pub-tag-input" type="text" placeholder="Add tag" />
+                </label>
+                <div class="pub-tags" id="pub-tags"></div>
+                <label class="pub-field" data-detail="price" hidden>
+                  <span>Price</span>
+                  <input id="pub-price-input" type="text" placeholder="Add price" />
+                </label>
+              </div>
+              <div class="pub-morewrap">
+                <button class="pub-more" id="pub-more" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="pub-detail-menu">
+                  <span class="pub-moreico"><img src="assets/pub-plus.svg" width="24" height="24" alt="" /></span>
+                  <span class="pub-morecopy">
+                    <strong>Add additional details</strong>
+                    <small id="pub-more-hint">Location, year, tags, price</small>
+                  </span>
+                </button>
+                <div class="pub-menu" id="pub-detail-menu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-detail="location">Location</button>
+                  <button type="button" role="menuitem" data-detail="year">Year</button>
+                  <button type="button" role="menuitem" data-detail="tags">Tags</button>
+                  <button type="button" role="menuitem" data-detail="price">Price</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <p class="pub-suggest">Additional blocks</p>
+
+          <section class="pub-card" id="renders-card" data-preview="renders">
+            <div class="pub-cardhead">
+              <span class="pub-drag pub-carddrag" title="Drag to reorder"><img src="assets/lucide-grip-vertical.svg" alt="" draggable="false" /></span>
+              <span class="pub-ico"><img src="assets/pub-renders.svg" width="20" height="20" alt="" /></span>
+              <span>Renders</span>
+              <span class="pub-count" id="renders-count" hidden>0</span>
+              <div class="pub-addwrap">
+                <button class="pub-addblock" id="renders-switch" type="button" aria-label="Add renders" aria-expanded="false" aria-haspopup="menu" aria-controls="renders-menu">
+                  <img src="assets/pub-plus.svg" width="24" height="24" alt="" />
+                </button>
+                <div class="pub-menu pub-rendmenu pub-blockmenu" id="renders-menu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-block-action="hide">
+                    <img src="assets/pub-visible-off.svg" width="24" height="24" alt="" />
+                    <span>Hide block</span>
+                  </button>
+                  <div class="pub-blockline"></div>
+                  <button type="button" role="menuitem" data-block-action="remove">
+                    <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                    <span>Remove block</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="pub-coverbox">
+              <img class="pub-art" src="assets/pub-renders-art.png" width="88" height="88" alt="" />
+              <strong>Select or upload renders</strong>
+              <p>Show the space from different angles</p>
+              <button class="pub-upload soft" id="pub-add-renders" type="button">
+                <img src="assets/pub-plus-green.svg" width="24" height="24" alt="" />
+                Add renders
+              </button>
+            </div>
+            <div class="pub-filelist" id="renders-list">
+              <div id="renders-rows"></div>
+              <label class="pub-addbar" for="pub-renders-input">
+                <img src="assets/pub-upload-gray.svg" width="24" height="24" alt="" />
+                Add renders
+              </label>
+            </div>
+            <input id="pub-renders-input" type="file" accept="image/*" multiple />
+            <input id="pub-render-replace" type="file" accept="image/*" />
+          </section>
+
+          <section class="pub-card" id="plan-card" data-preview="plan">
+            <div class="pub-cardhead">
+              <span class="pub-drag pub-carddrag" title="Drag to reorder"><img src="assets/lucide-grip-vertical.svg" alt="" draggable="false" /></span>
+              <span class="pub-ico"><img src="assets/pub-plan.svg" width="20" height="20" alt="" /></span>
+              <span>Floor plan</span>
+              <div class="pub-addwrap">
+                <button class="pub-addblock" type="button" aria-label="Add floor plan" aria-expanded="false" aria-haspopup="menu">
+                  <img src="assets/pub-plus.svg" width="24" height="24" alt="" />
+                </button>
+                <div class="pub-menu pub-rendmenu pub-blockmenu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-block-action="hide">
+                    <img src="assets/pub-visible-off.svg" width="24" height="24" alt="" />
+                    <span>Hide block</span>
+                  </button>
+                  <div class="pub-blockline"></div>
+                  <button type="button" role="menuitem" data-block-action="remove">
+                    <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                    <span>Remove block</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="pub-coverbox">
+              <img class="pub-art" src="assets/pub-plan-art.png" width="88" height="88" alt="" />
+              <strong>Select floor plan</strong>
+              <p>Let visitors walk through it in 3D</p>
+              <button class="pub-upload soft" id="pub-plan-select" type="button">Select</button>
+            </div>
+            <div class="pub-planfill">
+              <div class="pub-coverfile">
+                <img class="pub-coverthumb" src="assets/pub-plan-preview.png" alt="" />
+                <span class="pub-covermeta">
+                  <strong>Monica's flat</strong>
+                  <small>12 Jan 2026</small>
+                </span>
+                <div class="pub-addwrap">
+                  <button class="pub-morebtn" id="plan-more" type="button" aria-label="Floor plan menu" aria-expanded="false" aria-haspopup="menu" aria-controls="plan-file-menu">
+                    <img src="assets/pub-more.svg" width="24" height="24" alt="" />
+                  </button>
+                  <div class="pub-menu pub-rendmenu pub-blockmenu" id="plan-file-menu" role="menu" hidden>
+                    <button type="button" role="menuitem" data-plan-action="change">
+                      <img src="assets/pub-refresh.svg" width="24" height="24" alt="" />
+                      <span>Change</span>
+                    </button>
+                    <div class="pub-blockline"></div>
+                    <button type="button" role="menuitem" data-plan-action="delete">
+                      <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="pub-planline">
+                <div>
+                  <span class="pub-planhead"><strong>Disable copying</strong><i class="pub-pro">Pro</i></span>
+                  <p>Restrict copying your project by other user</p>
+                </div>
+                <button class="pub-switch" type="button" data-toast="Available on Pro" aria-pressed="false" aria-label="Disable copying">
+                  <img src="assets/pub-toggle.svg" width="44" height="30" alt="" />
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="pub-card" id="pano-card" data-preview="pano">
+            <div class="pub-cardhead">
+              <span class="pub-drag pub-carddrag" title="Drag to reorder"><img src="assets/lucide-grip-vertical.svg" alt="" draggable="false" /></span>
+              <span class="pub-ico"><img src="assets/pub-pano.svg" width="20" height="20" alt="" /></span>
+              <span>Panorama</span>
+              <i class="pub-pro">Pro</i>
+              <div class="pub-addwrap">
+                <button class="pub-addblock" type="button" aria-label="Add panorama" aria-expanded="false" aria-haspopup="menu">
+                  <img src="assets/pub-plus.svg" width="24" height="24" alt="" />
+                </button>
+                <div class="pub-menu pub-rendmenu pub-blockmenu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-block-action="hide">
+                    <img src="assets/pub-visible-off.svg" width="24" height="24" alt="" />
+                    <span>Hide block</span>
+                  </button>
+                  <div class="pub-blockline"></div>
+                  <button type="button" role="menuitem" data-block-action="remove">
+                    <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                    <span>Remove block</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="pub-coverbox">
+              <img class="pub-art" src="assets/pub-pano-art.png" width="88" height="88" alt="" />
+              <strong>Select 360° Panorama</strong>
+              <p>Let visitors view your space from different angles</p>
+              <button class="pub-upload soft" id="pub-pano-select" type="button">Select</button>
+            </div>
+            <div class="pub-panofill">
+              <div class="pub-coverfile">
+                <img class="pub-coverthumb" src="assets/pub-pano-preview.png" alt="" />
+                <span class="pub-covermeta">
+                  <strong>Name</strong>
+                  <small>12 Jan 2026</small>
+                </span>
+                <div class="pub-addwrap">
+                  <button class="pub-morebtn" id="pano-more" type="button" aria-label="Panorama menu" aria-expanded="false" aria-haspopup="menu" aria-controls="pano-file-menu">
+                    <img src="assets/pub-more.svg" width="24" height="24" alt="" />
+                  </button>
+                  <div class="pub-menu pub-rendmenu pub-blockmenu" id="pano-file-menu" role="menu" hidden>
+                    <button type="button" role="menuitem" data-pano-action="change">
+                      <img src="assets/pub-refresh.svg" width="24" height="24" alt="" />
+                      <span>Change</span>
+                    </button>
+                    <div class="pub-blockline"></div>
+                    <button type="button" role="menuitem" data-pano-action="delete">
+                      <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="pub-card" id="walk-card" data-preview="walk">
+            <div class="pub-cardhead">
+              <span class="pub-drag pub-carddrag" title="Drag to reorder"><img src="assets/lucide-grip-vertical.svg" alt="" draggable="false" /></span>
+              <span class="pub-ico"><img src="assets/pub-walk.svg" width="20" height="20" alt="" /></span>
+              <span>Walkthrough</span>
+              <i class="pub-pro">Pro</i>
+              <div class="pub-addwrap">
+                <button class="pub-addblock" type="button" aria-label="Add walkthrough" aria-expanded="false" aria-haspopup="menu">
+                  <img src="assets/pub-plus.svg" width="24" height="24" alt="" />
+                </button>
+                <div class="pub-menu pub-rendmenu pub-blockmenu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-block-action="hide">
+                    <img src="assets/pub-visible-off.svg" width="24" height="24" alt="" />
+                    <span>Hide block</span>
+                  </button>
+                  <div class="pub-blockline"></div>
+                  <button type="button" role="menuitem" data-block-action="remove">
+                    <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                    <span>Remove block</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="pub-coverbox">
+              <img class="pub-art" src="assets/pub-walk-art.png" width="88" height="88" alt="" />
+              <strong>Select 360° Walkthrough</strong>
+              <p>Let visitors walk through your space</p>
+              <button class="pub-upload soft" id="pub-walk-select" type="button">Select</button>
+            </div>
+            <div class="pub-walkfill">
+              <div class="pub-coverfile">
+                <img class="pub-coverthumb" src="assets/pub-walk-preview.png" alt="" />
+                <span class="pub-covermeta">
+                  <strong>Name</strong>
+                  <small>12 Jan 2026</small>
+                </span>
+                <div class="pub-addwrap">
+                  <button class="pub-morebtn" id="walk-more" type="button" aria-label="Walkthrough menu" aria-expanded="false" aria-haspopup="menu" aria-controls="walk-file-menu">
+                    <img src="assets/pub-more.svg" width="24" height="24" alt="" />
+                  </button>
+                  <div class="pub-menu pub-rendmenu pub-blockmenu" id="walk-file-menu" role="menu" hidden>
+                    <button type="button" role="menuitem" data-walk-action="change">
+                      <img src="assets/pub-refresh.svg" width="24" height="24" alt="" />
+                      <span>Change</span>
+                    </button>
+                    <div class="pub-blockline"></div>
+                    <button type="button" role="menuitem" data-walk-action="delete">
+                      <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="pub-card" id="contact-card" data-preview="contact">
+            <div class="pub-cardhead">
+              <span class="pub-drag pub-carddrag" title="Drag to reorder"><img src="assets/lucide-grip-vertical.svg" alt="" draggable="false" /></span>
+              <span class="pub-ico"><img src="assets/pub-mail.svg" width="20" height="20" alt="" /></span>
+              <span>Contact me</span>
+              <i class="pub-pro">Pro</i>
+              <div class="pub-addwrap">
+                <button class="pub-addblock" type="button" aria-label="Add contact me" aria-expanded="false" aria-haspopup="menu">
+                  <img src="assets/pub-plus.svg" width="24" height="24" alt="" />
+                </button>
+                <div class="pub-menu pub-rendmenu pub-blockmenu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-block-action="hide">
+                    <img src="assets/pub-visible-off.svg" width="24" height="24" alt="" />
+                    <span>Hide block</span>
+                  </button>
+                  <div class="pub-blockline"></div>
+                  <button type="button" role="menuitem" data-block-action="remove">
+                    <img src="assets/pub-trash.svg" width="24" height="24" alt="" />
+                    <span>Remove block</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="pub-fields">
+              <label class="pub-field">
+                <span>Email</span>
+                <input id="pub-contact-email-input" type="email" value="olya@gmail.com" />
+              </label>
+              <label class="pub-field">
+                <span>Phone</span>
+                <input id="pub-contact-phone-input" type="tel" placeholder="Add a phone number" />
+              </label>
+            </div>
+          </section>
+
+          <section class="pub-card" id="custom-card">
+            <div class="pub-cardhead">
+              <span class="pub-ico"><img src="assets/pub-image.svg" width="20" height="20" alt="" /></span>
+              <span>Custom block</span>
+              <div class="pub-addwrap">
+                <button class="pub-addblock" id="custom-add" type="button" aria-label="Add custom block">
+                  <img src="assets/pub-plus.svg" width="24" height="24" alt="" />
+                </button>
+              </div>
+            </div>
+          </section>
+        </aside>
+        <section class="pub-preview is-renders-off is-plan-off is-contact-off is-pano-off is-walk-off" data-layout="classic">
+          <div class="pub-flow">
+            <div class="pub-banner">
+              <span class="pub-info"><img src="assets/pub-info.svg" width="20" height="20" alt="" /></span>
+              <p>This is how visitors will see your page.</p>
+              <button class="pub-backedit" id="pub-back-edit" type="button">Back to editing</button>
+            </div>
+            <div class="pub-slot cover" id="cover-slot" role="button" tabindex="0" aria-label="Upload cover image">
+              <span class="pub-slotph">
+                <span class="pub-slotico"><img src="assets/pub-image.svg" width="24" height="24" alt="" /></span>
+              </span>
+              <span class="pub-slothover" aria-hidden="true">
+                <img src="assets/pub-upload-blue.svg" width="24" height="24" alt="" />
+              </span>
+            </div>
+            <div class="pub-story">
+              <div class="pub-who">
+                <span class="pub-ava">O</span>
+                <strong>Olya W.</strong>
+                <span>@ratata · Israel</span>
+              </div>
+              <h1 class="pub-title is-empty" id="pub-title">Untitled project</h1>
+              <div class="pub-meta">
+                <span data-detail="location" hidden><img src="assets/pub-gps.svg" width="20" height="20" alt="" /><b id="pub-location">Location</b></span>
+                <span data-detail="year" hidden><img src="assets/pub-calendar.svg" width="20" height="20" alt="" /><b id="pub-year">Year</b></span>
+              </div>
+              <p class="pub-about is-empty" id="pub-about">Tell visitors about the project in Project details</p>
+              <p class="pub-price" id="pub-price" hidden></p>
+              <div class="pub-tags-preview" id="pub-tags-preview"></div>
+            </div>
+            <div class="pub-contactblock" data-slot="contact">
+              <h2>Contact me</h2>
+              <div class="pub-contactcard">
+                <span class="pub-ava" id="pub-contact-letter">O</span>
+                <div class="pub-contactcopy">
+                  <strong id="pub-contact-user">@ratata</strong>
+                  <p>Want to talk about this project? Get in touch.</p>
+                </div>
+                <div class="pub-contactacts">
+                  <a class="pub-contactphone" id="pub-contact-phone" href="" hidden aria-label="Call">
+                    <img src="assets/pub-phone-white.svg" width="20" height="20" alt="" />
+                  </a>
+                  <a class="btn btn-dark pub-contactmail" id="pub-contact-mail" href="mailto:olya@gmail.com">
+                    <img src="assets/send.svg" width="24" height="24" alt="" />
+                    Contact me
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="pub-rendersblock" data-slot="renders">
+              <h2>Renders</h2>
+              <div class="pub-rendgrid" id="pub-rendgrid">
+                <button class="pub-drop" type="button" aria-label="Add render">
+                  <img src="assets/pub-image.svg" width="24" height="24" alt="" />
+                  <span class="pub-slothover" aria-hidden="true"><img src="assets/pub-upload-blue.svg" width="24" height="24" alt="" /></span>
+                </button>
+                <button class="pub-drop" type="button" aria-label="Add render">
+                  <img src="assets/pub-image.svg" width="24" height="24" alt="" />
+                  <span class="pub-slothover" aria-hidden="true"><img src="assets/pub-upload-blue.svg" width="24" height="24" alt="" /></span>
+                </button>
+              </div>
+            </div>
+            <div class="pub-panoblock" data-slot="pano">
+              <h2>Panorama</h2>
+              <div class="pub-panoslot">
+                <span class="pub-slotico"><img src="assets/pub-image.svg" width="24" height="24" alt="" /></span>
+                <span class="pub-slothover" aria-hidden="true"><img src="assets/pub-upload-blue.svg" width="24" height="24" alt="" /></span>
+                <img class="pub-panoimg" src="assets/pub-pano-preview.png" alt="" />
+              </div>
+            </div>
+            <div class="pub-walkblock" data-slot="walk">
+              <h2>Walkthrough</h2>
+              <div class="pub-walkslot">
+                <span class="pub-slotico"><img src="assets/pub-image.svg" width="24" height="24" alt="" /></span>
+                <span class="pub-slothover" aria-hidden="true"><img src="assets/pub-upload-blue.svg" width="24" height="24" alt="" /></span>
+                <img class="pub-walkimg" src="assets/pub-walk-preview.png" alt="" />
+              </div>
+            </div>
+            <div class="pub-planblock" data-slot="plan">
+              <h2>Floor plan</h2>
+              <div class="pub-planslot">
+                <span class="pub-slotico"><img src="assets/pub-image.svg" width="24" height="24" alt="" /></span>
+                <span class="pub-slothover" aria-hidden="true"><img src="assets/pub-upload-blue.svg" width="24" height="24" alt="" /></span>
+                <div class="pub-planfoot">
+                  <div class="pub-planname">
+                    <strong>Monica's flat</strong>
+                    <span>12 Jan 2026</span>
+                  </div>
+                  <div class="pub-planacts">
+                    <button class="pub-plancopy" type="button" data-toast="Copied to editor">Copy to editor</button>
+                    <button class="pub-planopen" type="button" data-toast="Opening in 3D">Open in 3D</button>
+                  </div>
+                </div>
+                <img class="pub-planimg" src="assets/pub-plan-preview.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="note-drawer" id="note-drawer" hidden>
+      <button class="note-drawer-back" id="note-drawer-back" type="button" aria-label="Close notifications"></button>
+      <aside class="note-drawer-panel" role="dialog" aria-modal="true" aria-labelledby="note-drawer-title">
+        <div class="note-drawer-head">
+          <strong id="note-drawer-title">Notifications</strong>
+          <div class="note-drawer-tools">
+            <div class="notify-filterwrap">
+              <button class="notify-filters" type="button" id="drawer-filters" aria-label="Filters" aria-expanded="false" aria-controls="drawer-filter-menu">
+                <img src="assets/notify-filters.svg" width="24" height="24" alt="" />
+              </button>
+              <div class="notify-filtermenu" id="drawer-filter-menu" role="menu" hidden>
+                <button type="button" data-filter="all" class="is-on" role="menuitemradio" aria-checked="true">All</button>
+                <button type="button" data-filter="unread" role="menuitemradio" aria-checked="false">Unread <b class="is-blue notify-unread-count">4</b></button>
+                <button type="button" data-filter="mention" role="menuitemradio" aria-checked="false">Mentions <b class="notify-mention-count">3</b></button>
+              </div>
+            </div>
+            <button class="note-drawer-x" id="note-drawer-close" type="button" aria-label="Close">
+              <img src="assets/notify-close.svg" width="24" height="24" alt="" />
+            </button>
+          </div>
+        </div>
+        <div class="note-drawer-body">
+          <div class="notify-list" id="note-drawer-list"></div>
+          <p class="notify-empty" id="note-drawer-empty" hidden>No notifications.</p>
+        </div>
+        <div class="notify-promo" id="drawer-promo">
+          <p class="notify-from">from Planner 5D</p>
+          <button class="notify-promo-x" type="button" aria-label="Dismiss">
+            <img src="assets/notify-close.svg" width="24" height="24" alt="" />
+          </button>
+          <div class="notify-promo-body">
+            <img class="notify-gift" src="assets/notify-gift.png" width="56" height="56" alt="" />
+            <div>
+              <strong>Pro is 30% off until Nov 30</strong>
+              <p>Unlimited renders and 4K export</p>
+              <button class="notify-plans" type="button" data-toast="View plans">View plans</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="topup-modal" id="topup-modal" hidden>
+      <div class="topup-sheet" role="dialog" aria-modal="true" aria-labelledby="topup-title">
+        <button class="topup-x" id="topup-close" type="button" aria-label="Close">
+          <img src="assets/notify-close.svg" width="24" height="24" alt="" />
+        </button>
+        <h2 id="topup-title">Turn on auto-top up?</h2>
+        <p class="topup-lead">Automatically buy more usage credits when you’re running low</p>
+        <div class="topup-fields">
+          <label class="topup-field">
+            <span>When usage credits drop to</span>
+            <input id="topup-low" type="text" inputmode="numeric" value="50" />
+          </label>
+          <label class="topup-field">
+            <span>Top up to</span>
+            <input id="topup-amount" type="text" inputmode="numeric" value="500" />
+            <b>$27.99</b>
+          </label>
+          <div class="topup-field topup-pay">
+            <span>Payment method</span>
+            <div class="topup-payrow">
+              <img src="assets/visa.svg" width="25" height="17" alt="" />
+              <em>Visa •••• 1223</em>
+              <img class="topup-chev" src="assets/chevron.svg" width="20" height="20" alt="" />
+            </div>
+          </div>
+        </div>
+        <p class="topup-fine">You agree that Planner5D will charge the card you have on file in the amount above on a recurring basis whenever your balance reaches the amount indicated. To cancel, turn off auto-reload</p>
+        <div class="topup-actions">
+          <button class="topup-cancel" id="topup-cancel" type="button">Cancel</button>
+          <button class="btn btn-green" id="topup-save" type="button">Turn on</button>
+        </div>
+      </div>
+    </div>
+    <div class="acct-modal" id="account-modal" hidden>
+      <div class="acct-sheet" role="dialog" aria-modal="true" aria-labelledby="account-modal-title">
+        <div class="acct-head">
+          <h2 id="account-modal-title">Edit account</h2>
+          <button class="acct-x" id="account-modal-close" type="button" aria-label="Close">
+            <img src="assets/pub-preview-close.svg" width="16" height="16" alt="" />
+          </button>
+        </div>
+        <label class="acct-photo">
+          <span class="avatar-preview" id="account-modal-avatar">O</span>
+          <span class="acct-cam"><img src="assets/camera.svg" width="16" height="16" alt="" /></span>
+          <input id="account-modal-photo" type="file" accept="image/*" aria-label="Change profile picture" />
+        </label>
+        <p class="acct-hint">Click the photo to change it</p>
+        <label class="field">
+          <span>Username</span>
+          <input id="account-modal-user" type="text" value="@ratata" />
+        </label>
+        <div class="acct-actions">
+          <button class="btn btn-soft" id="account-modal-cancel" type="button">Cancel</button>
+          <button class="btn btn-green" id="account-modal-save" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+  <script src="app.js"></script>
+</body>
+</html>
