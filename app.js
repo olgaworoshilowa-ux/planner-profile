@@ -1,4 +1,4 @@
-const screens = ["settings", "billing", "usage", "profile", "integrations", "community"];
+const screens = ["settings", "billing", "usage", "profile", "integrations", "community", "school"];
 let rangeIndex = 0;
 const ranges = ["Oct 30 – Nov 5", "Nov 6 – Nov 12", "Nov 13 – Nov 19"];
 
@@ -71,6 +71,8 @@ const prefCopy = {
     "nav-social": "Social",
     "nav-profile": "Public profile",
     "nav-community": "Community",
+    "nav-learn": "Learn",
+    "nav-school": "Design school",
     prefs: "Preferences",
     lang: "Language",
     "lang-hint": "The language used in Planner 5D",
@@ -94,6 +96,8 @@ const prefCopy = {
     "nav-social": "Социальное",
     "nav-profile": "Публичный профиль",
     "nav-community": "Сообщество",
+    "nav-learn": "Обучение",
+    "nav-school": "Design school",
     prefs: "Предпочтения",
     lang: "Язык",
     "lang-hint": "Язык в Planner 5D",
@@ -117,6 +121,8 @@ const prefCopy = {
     "nav-social": "Social",
     "nav-profile": "Perfil público",
     "nav-community": "Comunidad",
+    "nav-learn": "Aprender",
+    "nav-school": "Design school",
     prefs: "Preferencias",
     lang: "Idioma",
     "lang-hint": "El idioma de Planner 5D",
@@ -204,10 +210,10 @@ const usageTasks = [
   { task: "Window ideas", tool: "chats", date: "2026-11-06", time: "10:03", note: "4 messages", credits: 2, who: "Maria" },
   { task: "Whole-home set", tool: "plans", date: "2026-11-09", time: "17:51", note: "4 plans added", credits: 4, who: "Pete" },
   { task: "Office layout", tool: "chats", date: "2026-11-18", time: "15:27", note: "5 messages", credits: 3, who: "Ann" },
-  { task: "Kitchen scan", tool: "scans", date: "2026-11-16", time: "12:11", note: "2 rooms", credits: 2, who: "Maria" },
+  { task: "Kitchen scan", tool: "scans", date: "2026-11-16", time: "12:11", note: "2 rooms", credits: 2, who: "Maria", status: "failed" },
   { task: "Mood board", tool: "renders", date: "2026-11-14", time: "09:36", note: "HD", credits: 5, who: "Pete" },
   { task: "Plant shelf", tool: "chats", date: "2026-11-13", time: "18:02", note: "3 messages", credits: 2, who: "Ann" },
-  { task: "Facade render", tool: "renders", date: "2026-11-17", time: "11:48", note: "4K", credits: 6, who: "Maria" },
+  { task: "Facade render", tool: "renders", date: "2026-11-17", time: "11:48", note: "4K", credits: 6, who: "Maria", status: "failed" },
   { task: "Material notes", tool: "studio", date: "2026-11-15", time: "16:14", note: "AI edit", credits: 2, who: "Ann" },
 ];
 const rangeBounds = [
@@ -514,6 +520,13 @@ function paintUsage() {
     note.className = "history-note";
     note.textContent = row.note;
     details.append(title, note);
+    const status = document.createElement("td");
+    status.className = "status";
+    const pill = document.createElement("span");
+    const failed = row.status === "failed";
+    pill.className = "history-status " + (failed ? "is-failed" : "is-done");
+    pill.textContent = failed ? "Failed" : "Done";
+    status.append(pill);
     const credits = document.createElement("td");
     credits.className = "num";
     credits.textContent = String(row.credits);
@@ -530,12 +543,12 @@ function paintUsage() {
       name.textContent = row.who;
       person.append(face, name);
       who.append(person);
-      tr.append(activity, who, date, details, credits);
+      tr.append(activity, who, date, details, status, credits);
     } else {
-      tr.append(activity, date, details, credits);
+      tr.append(activity, date, details, status, credits);
     }
     const whoName = team ? row.who + " · " : "";
-    tr.addEventListener("click", () => showToast(row.task + " · " + whoName + toolName + " · " + credits.textContent));
+    tr.addEventListener("click", () => showToast(row.task + " · " + whoName + toolName + " · " + pill.textContent + " · " + credits.textContent));
     body.append(tr);
   });
 
@@ -647,10 +660,10 @@ document.addEventListener("click", (event) => {
 document.getElementById("usage-csv").addEventListener("click", () => {
   const rows = usageRows().slice().sort((a, b) => historyStamp(a) < historyStamp(b) ? 1 : -1);
   const team = document.querySelector(".app").classList.contains("team");
-  const lines = [team ? "Date,User,Activity,Details,Note,Credits" : "Date,Activity,Details,Note,Credits"];
+  const lines = [team ? "Date,User,Activity,Details,Note,Status,Credits" : "Date,Activity,Details,Note,Status,Credits"];
   rows.forEach((row) => {
     const amount = String(row.credits);
-    const cells = [formatHistoryDate(row), usageToolName(row.tool), row.task, row.note, amount];
+    const cells = [formatHistoryDate(row), usageToolName(row.tool), row.task, row.note, row.status === "failed" ? "Failed" : "Done", amount];
     if (team) cells.splice(1, 0, row.who);
     lines.push(cells
       .map((value) => '"' + String(value).replaceAll('"', '""') + '"')
