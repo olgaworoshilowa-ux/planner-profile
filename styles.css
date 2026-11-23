@@ -1064,6 +1064,7 @@ html[data-theme="dark"] .usage-filter-menu button.on { background: rgba(255, 255
 .act-ico.plans { background: #d3aaff; }
 .usage-table .history-title { display: block; font-weight: 400; color: #1c1c1c; }
 .usage-table .history-note { display: block; margin-top: 2px; color: #8d8d8d; font-size: 13px; line-height: 18px; }
+.usage-table td.history-state { white-space: nowrap; }
 .history-status {
   display: inline-flex;
   align-items: center;

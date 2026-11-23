@@ -521,7 +521,7 @@ function paintUsage() {
     note.textContent = row.note;
     details.append(title, note);
     const status = document.createElement("td");
-    status.className = "status";
+    status.className = "history-state";
     const pill = document.createElement("span");
     const failed = row.status === "failed";
     pill.className = "history-status " + (failed ? "is-failed" : "is-done");
