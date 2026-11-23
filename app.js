@@ -179,6 +179,8 @@ document.getElementById("pref-theme").addEventListener("click", (event) => {
 const usageTools = [
   ["renders", "Renders", "#7c5dff"],
   ["scans", "Home scans", "#73eaad"],
+  ["panos", "Panoramas", "#1493a8"],
+  ["walks", "Walkthroughs", "#e07a3d"],
   ["chats", "Chats", "#0177de"],
   ["studio", "AI Studio", "#ffad82"],
   ["plans", "Home plans suite", "#da4092"],
@@ -186,6 +188,8 @@ const usageTools = [
 const activityNames = {
   renders: "Render",
   scans: "Home scan",
+  panos: "Panorama",
+  walks: "Walkthrough",
   chats: "Chat",
   studio: "AI Studio",
   plans: "Home plans",
@@ -193,6 +197,8 @@ const activityNames = {
 const activityIcons = {
   renders: "assets/act-render.svg",
   scans: "assets/act-scan.svg",
+  panos: "assets/pub-pano.svg",
+  walks: "assets/pub-walk.svg",
   chats: "assets/act-chat.svg?v=2",
   studio: "assets/act-studio.svg",
   plans: "assets/act-plan.svg",
@@ -206,7 +212,9 @@ const usageTasks = [
   { task: "Draft render", tool: "renders", date: "2026-11-02", time: "14:05", note: "HD", credits: 4, who: "Ann" },
   { task: "Bedroom colors", tool: "chats", date: "2026-11-12", time: "19:18", note: "6 messages", credits: 3, who: "Maria" },
   { task: "Hallway scan", tool: "scans", date: "2026-11-10", time: "08:44", note: "1 room", credits: 2, who: "Ann" },
+  { task: "Living room panorama", tool: "panos", date: "2026-11-11", time: "14:20", note: "360 view", credits: 3, who: "Ann" },
   { task: "Sofa render", tool: "renders", date: "2026-11-08", time: "13:22", note: "4K", credits: 7, who: "Pete" },
+  { task: "Kitchen walkthrough", tool: "walks", date: "2026-11-07", time: "11:05", note: "Full tour", credits: 4, who: "Pete" },
   { task: "Window ideas", tool: "chats", date: "2026-11-06", time: "10:03", note: "4 messages", credits: 2, who: "Maria" },
   { task: "Whole-home set", tool: "plans", date: "2026-11-09", time: "17:51", note: "4 plans added", credits: 4, who: "Pete" },
   { task: "Office layout", tool: "chats", date: "2026-11-18", time: "15:27", note: "5 messages", credits: 3, who: "Ann" },

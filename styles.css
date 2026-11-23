@@ -1059,6 +1059,8 @@ html[data-theme="dark"] .usage-filter-menu button.on { background: rgba(255, 255
 .act-ico img { width: 20px; height: 20px; }
 .act-ico.renders { background: #ffd873; }
 .act-ico.scans { background: #aeea8f; }
+.act-ico.panos { background: #b7ecf5; }
+.act-ico.walks { background: #ffd7bf; }
 .act-ico.chats { background: #aad0ff; }
 .act-ico.studio { background: #ffad82; }
 .act-ico.plans { background: #d3aaff; }
