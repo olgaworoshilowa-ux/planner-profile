@@ -2365,3 +2365,18 @@ document.querySelector(".int-filters").addEventListener("click", (event) => {
   paintIntegrations();
 });
 document.getElementById("int-query").addEventListener("input", paintIntegrations);
+
+const copilotInput = document.getElementById("copilot-input");
+document.querySelectorAll(".copilot-chips button").forEach((button) => {
+  button.addEventListener("click", () => {
+    copilotInput.value = button.textContent.trim();
+    copilotInput.focus();
+  });
+});
+document.getElementById("copilot-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const text = copilotInput.value.trim();
+  if (!text) return;
+  showToast(text);
+  copilotInput.value = "";
+});

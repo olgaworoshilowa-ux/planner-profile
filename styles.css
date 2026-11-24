@@ -1648,11 +1648,128 @@ html[data-theme="dark"] .history-pages button.on img { filter: none; }
 .pub-preview {
   flex: 1;
   min-width: 0;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: #fff;
   border-radius: 24px;
-  padding: 28px;
+  padding: 0;
   box-sizing: border-box;
+}
+.pub-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 28px 28px 16px;
+}
+.copilot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 28px 16px;
+  box-sizing: border-box;
+}
+.copilot-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: min(720px, 100%);
+}
+.copilot-chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px 0 6px;
+  border: 1px solid rgba(0, 0, 0, .08);
+  border-radius: 100px;
+  background: #fff;
+  color: #1b1b1b;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+.copilot-ico {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.copilot-ico.plan { background: #7c5cff; }
+.copilot-ico.sofa { background: #3d8bfd; }
+.copilot-ico.photo { background: #f5a04a; }
+.copilot-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(720px, 100%);
+  min-height: 56px;
+  padding: 6px 6px 6px 12px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, #4da3ff, #3dce7a, #f0c93a, #ff7a45) border-box;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
+}
+.copilot-bar input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1b1b1b;
+}
+.copilot-bar input::placeholder { color: #919191; }
+.copilot-clip,
+.copilot-model,
+.copilot-mic {
+  border: 0;
+  background: transparent;
+  color: #1b1b1b;
+  cursor: pointer;
+  font: inherit;
+}
+.copilot-clip {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  flex: none;
+  color: #575757;
+}
+.copilot-model {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.copilot-mic {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 100px;
+  background: #111;
+  display: grid;
+  place-items: center;
+  flex: none;
 }
 .pub-shots {
   display: grid;
@@ -3004,13 +3121,19 @@ html[data-theme="dark"] .pub-mode button.on {
   color: #fff;
   box-shadow: none;
 }
-html[data-theme="dark"] .pub-card,
-html[data-theme="dark"] .pub-preview,
-html[data-theme="dark"] .pub-dialog,
-html[data-theme="dark"] .pub-menu {
-  background: #1e1e1e;
+html[data-theme="dark"] .copilot-chips button,
+html[data-theme="dark"] .copilot-bar {
+  background: #2a2a2a;
   color: #f2f2f2;
 }
+html[data-theme="dark"] .copilot-bar {
+  background:
+    linear-gradient(#2a2a2a, #2a2a2a) padding-box,
+    linear-gradient(90deg, #4da3ff, #3dce7a, #f0c93a, #ff7a45) border-box;
+}
+html[data-theme="dark"] .copilot-bar input { color: #f2f2f2; }
+html[data-theme="dark"] .copilot-model,
+html[data-theme="dark"] .copilot-clip { color: #f2f2f2; }
 html[data-theme="dark"] .pub-menu button,
 html[data-theme="dark"] .pub-menu.pub-blockmenu button { color: #f2f2f2; }
 html[data-theme="dark"] .pub-menu.pub-blockmenu [data-block-action="remove"],
