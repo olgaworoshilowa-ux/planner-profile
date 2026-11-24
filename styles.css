@@ -1663,114 +1663,146 @@ html[data-theme="dark"] .history-pages button.on img { filter: none; }
   padding: 28px 28px 16px;
 }
 .copilot {
-  flex: none;
+  flex: 0 1 460px;
+  min-height: 240px;
+  max-height: 72%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  justify-content: center;
   width: 100%;
-  padding: 8px 28px 16px;
+  padding: 0 28px 16px;
   box-sizing: border-box;
 }
-.copilot-chips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  width: min(720px, 100%);
+.copilot.is-full {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  padding: 16px;
 }
-.copilot-chips button {
+.pub-preview.is-chat-full .pub-scroll { display: none; }
+.copilot-card {
+  width: min(380px, 100%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .08);
+  border-radius: 28px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .12);
+  overflow: hidden;
+}
+.copilot.is-full .copilot-card {
+  width: 100%;
+  border-radius: 24px;
+}
+.copilot-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 12px 4px;
+}
+.copilot-who {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  height: 36px;
-  padding: 0 14px 0 6px;
-  border: 1px solid rgba(0, 0, 0, .08);
-  border-radius: 100px;
+  gap: 4px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 12px;
   background: #fff;
   color: #1b1b1b;
   font: inherit;
   font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
 }
-.copilot-ico {
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
+.copilot-tools { display: flex; align-items: center; gap: 6px; }
+.copilot-tools button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 12px;
+  background: #fff;
+  color: #1b1b1b;
   display: grid;
   place-items: center;
-  flex: none;
+  cursor: pointer;
 }
-.copilot-ico.plan { background: #7c5cff; }
-.copilot-ico.sofa { background: #3d8bfd; }
-.copilot-ico.photo { background: #f5a04a; }
-.copilot-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: min(720px, 100%);
-  min-height: 56px;
-  padding: 6px 6px 6px 12px;
-  border: 2px solid transparent;
-  border-radius: 18px;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, #4da3ff, #3dce7a, #f0c93a, #ff7a45) border-box;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
-}
-.copilot-bar input {
+.copilot-tools .ico-shrink { display: none; }
+.copilot.is-full .copilot-tools .ico-expand { display: none; }
+.copilot.is-full .copilot-tools .ico-shrink { display: block; }
+.copilot-thread {
+  position: relative;
   flex: 1;
-  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 16px 12px;
+}
+.copilot-ava {
+  position: absolute;
+  top: 4px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  background: #111;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+.copilot-bubble {
+  margin: 36px 44px 8px 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #f3f3f3;
+  color: #1b1b1b;
+  font-size: 15px;
+  line-height: 22px;
+}
+.copilot-bubble.is-mine {
+  margin: 8px 0 8px 48px;
+  background: #111;
+  color: #fff;
+}
+.copilot-compose {
+  margin: 0 12px 12px;
+  padding: 10px 10px 8px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 16px;
+  background: #fff;
+}
+.copilot-compose input {
+  width: 100%;
   border: 0;
   outline: none;
   background: transparent;
   font: inherit;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 15px;
+  line-height: 22px;
   color: #1b1b1b;
 }
-.copilot-bar input::placeholder { color: #919191; }
-.copilot-clip,
-.copilot-model,
-.copilot-mic {
-  border: 0;
-  background: transparent;
-  color: #1b1b1b;
-  cursor: pointer;
-  font: inherit;
-}
-.copilot-clip {
+.copilot-compose input::placeholder { color: #9a9a9a; }
+.copilot-actions { display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+.copilot-gap { flex: 1; }
+.copilot-plus,
+.copilot-mic,
+.copilot-send {
   width: 36px;
   height: 36px;
   padding: 0;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 12px;
+  background: #fff;
+  color: #1b1b1b;
   display: grid;
   place-items: center;
-  flex: none;
-  color: #575757;
+  cursor: pointer;
 }
-.copilot-model {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  height: 36px;
-  padding: 0 8px;
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.copilot-mic {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border-radius: 100px;
-  background: #111;
-  display: grid;
-  place-items: center;
-  flex: none;
-}
+.copilot-mic { border-color: transparent; }
+.copilot-send { border-radius: 100px; }
 .pub-shots {
   display: grid;
   grid-template-columns: minmax(0, 455fr) minmax(0, 223fr) minmax(0, 223fr);
@@ -3121,19 +3153,20 @@ html[data-theme="dark"] .pub-mode button.on {
   color: #fff;
   box-shadow: none;
 }
-html[data-theme="dark"] .copilot-chips button,
-html[data-theme="dark"] .copilot-bar {
-  background: #2a2a2a;
+html[data-theme="dark"] .copilot-card,
+html[data-theme="dark"] .copilot-who,
+html[data-theme="dark"] .copilot-tools button,
+html[data-theme="dark"] .copilot-compose,
+html[data-theme="dark"] .copilot-plus,
+html[data-theme="dark"] .copilot-mic,
+html[data-theme="dark"] .copilot-send {
+  background: #1e1e1e;
   color: #f2f2f2;
+  border-color: rgba(255, 255, 255, .12);
 }
-html[data-theme="dark"] .copilot-bar {
-  background:
-    linear-gradient(#2a2a2a, #2a2a2a) padding-box,
-    linear-gradient(90deg, #4da3ff, #3dce7a, #f0c93a, #ff7a45) border-box;
-}
-html[data-theme="dark"] .copilot-bar input { color: #f2f2f2; }
-html[data-theme="dark"] .copilot-model,
-html[data-theme="dark"] .copilot-clip { color: #f2f2f2; }
+html[data-theme="dark"] .copilot-bubble { background: #2a2a2a; color: #f2f2f2; }
+html[data-theme="dark"] .copilot-bubble.is-mine { background: #f2f2f2; color: #111; }
+html[data-theme="dark"] .copilot-compose input { color: #f2f2f2; }
 html[data-theme="dark"] .pub-menu button,
 html[data-theme="dark"] .pub-menu.pub-blockmenu button { color: #f2f2f2; }
 html[data-theme="dark"] .pub-menu.pub-blockmenu [data-block-action="remove"],

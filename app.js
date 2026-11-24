@@ -2366,17 +2366,30 @@ document.querySelector(".int-filters").addEventListener("click", (event) => {
 });
 document.getElementById("int-query").addEventListener("input", paintIntegrations);
 
+const copilot = document.getElementById("copilot");
 const copilotInput = document.getElementById("copilot-input");
-document.querySelectorAll(".copilot-chips button").forEach((button) => {
-  button.addEventListener("click", () => {
-    copilotInput.value = button.textContent.trim();
-    copilotInput.focus();
-  });
+const copilotThread = document.getElementById("copilot-thread");
+const copilotExpand = document.getElementById("copilot-expand");
+
+function setCopilotFull(on) {
+  copilot.classList.toggle("is-full", on);
+  document.querySelector(".pub-preview").classList.toggle("is-chat-full", on);
+  copilotExpand.setAttribute("aria-pressed", on ? "true" : "false");
+  copilotExpand.setAttribute("aria-label", on ? "Exit full screen" : "Full screen");
+}
+
+copilotExpand.addEventListener("click", () => {
+  setCopilotFull(!copilot.classList.contains("is-full"));
 });
+document.getElementById("copilot-close").addEventListener("click", () => setCopilotFull(false));
 document.getElementById("copilot-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const text = copilotInput.value.trim();
   if (!text) return;
-  showToast(text);
+  const bubble = document.createElement("p");
+  bubble.className = "copilot-bubble is-mine";
+  bubble.textContent = text;
+  copilotThread.append(bubble);
   copilotInput.value = "";
+  copilotThread.scrollTop = copilotThread.scrollHeight;
 });
