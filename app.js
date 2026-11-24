@@ -1,5 +1,6 @@
 const screens = ["settings", "billing", "usage", "profile", "integrations", "community", "school"];
 let rangeIndex = 0;
+let monthOffset = 0;
 const ranges = ["Oct 30 – Nov 5", "Nov 6 – Nov 12", "Nov 13 – Nov 19"];
 
 const notifyRows = [
@@ -255,7 +256,10 @@ function shareLabel(used, total) {
 
 function usageSpan() {
   const days = document.querySelector("#range button.on").dataset.range;
-  if (days === "30") return ["2026-10-21", "2026-11-19"];
+  if (days === "30") {
+    const end = shiftIso("2026-11-19", monthOffset * 30);
+    return [shiftIso(end, -29), end];
+  }
   return rangeBounds[rangeIndex];
 }
 
@@ -267,9 +271,8 @@ function paintRangeChrome() {
   document.querySelectorAll(".chart-card .axis span").forEach((node, index) => {
     node.textContent = formatUsageDate(marks[index]);
   });
-  const month = document.querySelector("#range button.on").dataset.range === "30";
-  document.getElementById("range-prev").disabled = month;
-  document.getElementById("range-next").disabled = month;
+  document.getElementById("range-prev").disabled = false;
+  document.getElementById("range-next").disabled = false;
 }
 
 function usageRows() {
@@ -994,8 +997,9 @@ document.getElementById("range").addEventListener("click", (event) => {
 });
 
 function stepRange(dir) {
-  rangeIndex = (rangeIndex + dir + ranges.length) % ranges.length;
-  document.getElementById("range-label").textContent = ranges[rangeIndex];
+  const month = document.querySelector("#range button.on").dataset.range === "30";
+  if (month) monthOffset += dir;
+  else rangeIndex = (rangeIndex + dir + ranges.length) % ranges.length;
   chartDay = "";
   paintUsage();
 }
