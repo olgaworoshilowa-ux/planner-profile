@@ -272,7 +272,8 @@ function paintRangeChrome() {
     node.textContent = formatUsageDate(marks[index]);
   });
   document.getElementById("range-prev").disabled = false;
-  document.getElementById("range-next").disabled = false;
+  const month = document.querySelector("#range button.on").dataset.range === "30";
+  document.getElementById("range-next").disabled = month && monthOffset >= 0;
 }
 
 function usageRows() {
@@ -998,8 +999,10 @@ document.getElementById("range").addEventListener("click", (event) => {
 
 function stepRange(dir) {
   const month = document.querySelector("#range button.on").dataset.range === "30";
-  if (month) monthOffset += dir;
-  else rangeIndex = (rangeIndex + dir + ranges.length) % ranges.length;
+  if (month) {
+    if (dir > 0 && monthOffset >= 0) return;
+    monthOffset += dir;
+  } else rangeIndex = (rangeIndex + dir + ranges.length) % ranges.length;
   chartDay = "";
   paintUsage();
 }
