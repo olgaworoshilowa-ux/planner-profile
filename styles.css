@@ -569,7 +569,6 @@ a { color: var(--green-deep); font-weight: 600; text-decoration: none; }
   display: flex; flex-direction: column;
   overflow: auto; padding: 12px; background: #fff;
 }
-#learn-group { margin-top: auto; }
 .nav-group { margin-bottom: 16px; }
 .nav-label {
   min-height: 36px; display: flex; align-items: center; padding: 4px 12px;
